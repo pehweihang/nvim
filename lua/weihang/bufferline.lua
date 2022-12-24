@@ -72,17 +72,7 @@ bufferline.setup({
 		--   return buffer_a.modified > buffer_b.modified
 		-- end
 	},
-	highlights = require("catppuccin.groups.integrations.bufferline").get({
-		styles = { "italic", "bold" },
-		custom = {
-			all = {
-				fill = { bg = "#000000" },
-			},
-			latte = {
-				background = { fg = "#000000" },
-			},
-		},
-	}),
+	highlights = require("catppuccin.groups.integrations.bufferline").get(),
 })
 
 vim.api.nvim_set_keymap("n", "<leader>z", ":Bdelete<CR>", { silent = true })

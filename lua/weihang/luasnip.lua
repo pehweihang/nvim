@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 require("luasnip/loaders/from_vscode").load({
-	paths = "~/.config/nvim/after/cp-snippets/",
+	paths = "~/.config/nvim/lua/weihang/cp-snippets/",
 })
 
 require("luasnip/loaders/from_vscode").lazy_load()
