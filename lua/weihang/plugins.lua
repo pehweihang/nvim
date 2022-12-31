@@ -61,6 +61,7 @@ return packer.startup(function(use)
 	use("ggandor/lightspeed.nvim") -- navigation
 	use("kylechui/nvim-surround")
 	use("stevearc/dressing.nvim")
+	use("christoomey/vim-tmux-navigator")
 
 	-- session
 	-- use("rmagatti/auto-session")
