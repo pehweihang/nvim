@@ -41,3 +41,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.keymap.set("n", "<F5>", "<cmd>w<CR><cmd>!time python ./%:r.py < %:r.in<CR>")
 	end,
 })
+
+-- Remove statusline and tabline when in Alpha
+vim.api.nvim_create_autocmd({ "User" }, {
+  group = vim.api.nvim_create_augroup("HideAlpha", {}),
+	pattern = { "AlphaReady" },
+	callback = function()
+		vim.cmd([[
+      set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
+      set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
+    ]])
+	end,
+})
