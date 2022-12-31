@@ -66,6 +66,8 @@ local function lsp_keymaps(bufnr)
 	keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 	keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	-- keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+	-- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()']])
+  vim.api.nvim_buf_create_user_command(bufnr, "Format", "lua vim.lsp.buf.format()", {})
 end
 
 M.on_attach = function(client, bufnr)
