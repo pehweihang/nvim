@@ -19,7 +19,9 @@ vim.g.mapleader = " "
 -- keymap("n", "<C-k>", "<C-w>k", opts)
 -- keymap("n", "<C-l>", "<C-w>l", opts)
 
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>z", "<cmd>Bdelete<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<leader>Z", "<cmd>bufdo Bdelete<CR>", { silent = true })
 
 -- Cursor stays in middle when navigating
 -- vim.keymap.set("n", "<C-d>", "<C-d>zz")
@@ -28,14 +30,14 @@ vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 -- vim.keymap.set("n", "N", "Nzz")
 
 -- Resize with arrows
-vim.keymap.set("n", "<S-Up>", ":resize +2<CR>", opts)
-vim.keymap.set("n", "<S-Down>", ":resize -2<CR>", opts)
-vim.keymap.set("n", "<S-Left>", ":vertical resize -2<CR>", opts)
-vim.keymap.set("n", "<S-Right>", ":vertical resize +2<CR>", opts)
+vim.keymap.set("n", "<S-Up>", "<cmd>resize +2<CR>", opts)
+vim.keymap.set("n", "<S-Down>", "<cmd>resize -2<CR>", opts)
+vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -2<CR>", opts)
+vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<CR>", opts)
 
 -- Navigate buffers
-vim.keymap.set("n", "<S-l>", ":bnext<CR>", opts)
-vim.keymap.set("n", "<S-h>", ":bprevious<CR>", opts)
+vim.keymap.set("n", "<S-l>", "<cmd>bnext<CR>", opts)
+vim.keymap.set("n", "<S-h>", "<cmd>bprevious<CR>", opts)
 
 -- Insert --
 -- Press jk fast to enter
@@ -47,6 +49,6 @@ vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
 -- Move text up and down
-vim.keymap.set("v", "J", ":m .+1<CR>gv=gv", opts)
-vim.keymap.set("v", "K", ":m .-2<CR>gv=gv", opts)
+vim.keymap.set("v", "J", "<cmd>m .+1<CR>gv=gv", opts)
+vim.keymap.set("v", "K", "<cmd>m .-2<CR>gv=gv", opts)
 vim.keymap.set("v", "p", '"_dP', opts)
