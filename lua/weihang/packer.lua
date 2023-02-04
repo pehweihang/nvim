@@ -60,8 +60,18 @@ return packer.startup(function(use)
 	use("ellisonleao/glow.nvim") -- markdown viewer
 	use("ggandor/lightspeed.nvim") -- navigation
 	use("kylechui/nvim-surround")
-	use("stevearc/dressing.nvim")
 	use("christoomey/vim-tmux-navigator")
+	use({
+		"folke/noice.nvim",
+		requires = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
+		},
+	})
 
 	-- session
 	-- use("rmagatti/auto-session")
@@ -77,7 +87,7 @@ return packer.startup(function(use)
 	use("simrat39/rust-tools.nvim")
 
 	-- Autocompletion
-	use("hrsh7th/nvim-cmp")
+	use("hrsh7thunvim-cmp")
 	use("hrsh7th/cmp-buffer")
 	use("hrsh7th/cmp-path")
 	use("hrsh7th/cmp-cmdline")

@@ -19,9 +19,6 @@ vim.g.mapleader = " "
 -- keymap("n", "<C-k>", "<C-w>k", opts)
 -- keymap("n", "<C-l>", "<C-w>l", opts)
 
-vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>z", "<cmd>Bdelete<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<leader>Z", "<cmd>bufdo Bdelete<CR>", { silent = true })
 
 -- Cursor stays in middle when navigating
 -- vim.keymap.set("n", "<C-d>", "<C-d>zz")
