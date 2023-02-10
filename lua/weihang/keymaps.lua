@@ -49,3 +49,5 @@ vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "J", "<cmd>m .+1<CR>gv=gv", opts)
 vim.keymap.set("v", "K", "<cmd>m .-2<CR>gv=gv", opts)
 vim.keymap.set("v", "p", '"_dP', opts)
+
+vim.keymap.set("s", "<BS>", "<C-o>s", opts)

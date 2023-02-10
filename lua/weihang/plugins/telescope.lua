@@ -44,13 +44,9 @@ return {
 					---@usage path to store the project history for use in telescope
 					datapath = vim.fn.stdpath("data"),
 				})
-
-				local tele_status_ok, telescope = pcall(require, "telescope")
-				if not tele_status_ok then
-					return
-				end
 			end,
 		},
+		{ "nvim-telescope/telescope-file-browser.nvim" },
 		"nvim-telescope/telescope-media-files.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		"gbrlsnchs/telescope-lsp-handlers.nvim",
@@ -72,9 +68,9 @@ return {
 		},
 		{ "<leader>d", "<cmd>Telescope diagnostics bufnr=0<CR>", mode = "n", opts },
 		{ "<leader>D", "<cmd>Telescope diagnostics<CR>", mode = "n", opts },
-		{ "gd", "<cmd>Telescope lsp_definitions<CR>", mode = "n", opts },
-		{ "gi", "<cmd>Telescope lsp_implementations<CR>", mode = "n", opts },
-		{ "gr", "<cmd>Telescope lsp_references<CR>", mode = "n", opts },
+		-- { "gd", "<cmd>Telescope lsp_definitions<CR>", mode = "n", opts },
+		-- { "gi", "<cmd>Telescope lsp_implementations<CR>", mode = "n", opts },
+		-- { "gr", "<cmd>Telescope lsp_references<CR>", mode = "n", opts },
 	},
 	config = function()
 		local status_ok, telescope = pcall(require, "telescope")
@@ -86,6 +82,7 @@ return {
 		telescope.load_extension("fzf")
 		telescope.load_extension("lsp_handlers")
 		telescope.load_extension("projects")
+		telescope.load_extension("file_browser")
 
 		local actions = require("telescope.actions")
 
@@ -108,8 +105,11 @@ return {
 
 						["<Down>"] = actions.move_selection_next,
 						["<Up>"] = actions.move_selection_previous,
-
-						["<CR>"] = actions.select_default,
+						["<CR>"] = function()
+							vim.cmd([[:stopinsert]])
+							vim.cmd([[call feedkeys("\<CR>")]])
+						end,
+						-- ["<CR>"] = actions.select_default,
 						["<C-x>"] = actions.select_horizontal,
 						["<C-v>"] = actions.select_vertical,
 						["<C-t>"] = actions.select_tab,
@@ -182,10 +182,18 @@ return {
 					find_cmd = "rg", -- find command (defaults to `fd`)
 				},
 				-- Your extension configuration goes here:
-				-- extension_name = {
-				--   extension_config_key = value,
-				-- }
-				-- please take a look at the readme of the extension you want to configure
+				file_browser = {
+					theme = "ivy",
+					hijack_netrw = true,
+					mappings = {
+						["i"] = {
+							-- your custom insert mode mappings
+						},
+						["n"] = {
+							-- your custom normal mode mappings
+						},
+					},
+				},
 			},
 		})
 	end,

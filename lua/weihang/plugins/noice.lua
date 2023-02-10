@@ -20,7 +20,7 @@ return {
 		require("noice").setup({
 			cmdline = {
 				enabled = true, -- enables the Noice cmdline UI
-				view = "cmdline", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+				view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
 				opts = {}, -- global options for the cmdline. See section on views
 				---@type table<string, CmdlineFormat>
 				format = {
@@ -30,14 +30,8 @@ return {
 					-- icon_hl_group: optional hl_group for the icon
 					-- title: set to anything or empty string to hide
 					cmdline = { pattern = "^:", icon = "", lang = "vim" },
-					search_down = {
-						kind = "search",
-						pattern = "^/",
-						icon = " ",
-						lang = "regex",
-						view = "cmdline",
-					},
-					search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex", view = "cmdline" },
+					search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
+					search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
 					filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
 					lua = { pattern = "^:%s*lua%s+", icon = "", lang = "lua" },
 					help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
@@ -58,7 +52,7 @@ return {
 			popupmenu = {
 				enabled = true, -- enables the Noice popupmenu UI
 				---@type 'nui'|'cmp'
-				backend = "cmp", -- backend to use to show regular cmdline completions
+				backend = "nui", -- backend to use to show regular cmdline completions
 				---@type NoicePopupmenuItemKind|false
 				-- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
 				kind_icons = {}, -- set to `false` to disable icons
@@ -204,8 +198,8 @@ return {
 			presets = {
 				-- you can enable a preset by setting it to true, or a table that will override the preset config
 				-- you can also add custom presets that you can enable/disable with enabled=true
-				bottom_search = true, -- use a classic bottom cmdline for search
-				command_palette = false, -- position the cmdline and popupmenu together
+				bottom_search = false, -- use a classic bottom cmdline for search
+				command_palette = true, -- position the cmdline and popupmenu together
 				long_message_to_split = false, -- long messages will be sent to a split
 				inc_rename = false, -- enables an input dialog for inc-rename.nvim
 				lsp_doc_border = false, -- add a border to hover docs and signature help
@@ -214,23 +208,7 @@ return {
 			---@type NoiceConfigViews
 			views = {}, ---@see section on views
 			---@type NoiceRouteConfig[]
-			routes = {
-				{
-					filter = {
-						event = "msg_show",
-						kind = "search_count",
-					},
-					opts = { skip = true },
-				},
-				-- {
-				-- 	filter = {
-				-- 		event = "msg_show",
-				-- 		kind = "",
-				-- 		find = "written",
-				-- 	},
-				-- 	opts = { skip = true },
-				-- },
-			}, --- @see section on routes
+			routes = {}, --- @see section on routes
 			---@type table<string, NoiceFilter>
 			status = {}, --- @see section on statusline components
 			---@type NoiceFormatOptions

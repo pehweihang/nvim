@@ -18,7 +18,3 @@ if not status_ok then
 end
 
 lazy.setup({ { import = "weihang.plugins" } })
-
--- lazy.setup({
--- 	"nvim-lua/popup.nvim", -- An implementation of the Popup API from vim in Neovim
--- })

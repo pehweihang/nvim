@@ -1,6 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
+	build = ":TSUpdate",
 	config = function()
 		local configs = require("nvim-treesitter.configs")
 		configs.setup({
@@ -15,7 +15,7 @@ return {
 				disable = { "" }, -- list of language that will be disabled
 				additional_vim_regex_highlighting = true,
 			},
-			indent = { enable = true, disable = { "yaml", "python" } },
+			indent = { enable = true, disable = { "yaml", "python", "org" } },
 		})
 	end,
 }

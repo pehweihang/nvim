@@ -46,8 +46,8 @@ return {
 				hop = false,
 				illuminate = false,
 				leap = false,
-				lightspeed = true,
-				lsp_saga = false,
+				lightspeed = false,
+				lsp_saga = true,
 				lsp_trouble = true,
 				markdown = true,
 				mason = true,
@@ -77,7 +77,7 @@ return {
 				},
 				indent_blankline = {
 					enabled = true,
-					colored_indent_levels = false,
+					colored_indent_levels = true,
 				},
 				native_lsp = {
 					enabled = true,

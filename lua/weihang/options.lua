@@ -11,7 +11,7 @@ local options = {
 	mouse = "", -- allow the mouse to be used in neovim
 	pumheight = 10, -- pop up menu height
 	showmode = false, -- we don't need to see things like -- INSERT -- anymore
-	showtabline = 2, -- always show tabs
+	showtabline = 0, -- always show tabs
 	smartcase = true, -- smart case
 	smartindent = true, -- make indenting smarter again
 	splitbelow = true, -- force all horizontal splits to go below current window
@@ -33,15 +33,12 @@ local options = {
 	wrap = true, -- do not display lines as one long line
 	scrolloff = 8, -- is one of my fav
 	sidescrolloff = 8,
+	-- wildmenu = true,
+ --  wildmode = "longest:full,list"
 }
 
 vim.opt.iskeyword:append("-")
 vim.opt.shortmess:append("c")
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "python",
-	command = "setlocal shiftwidth=4 tabstop=4",
-})
 
 for k, v in pairs(options) do
 	vim.opt[k] = v

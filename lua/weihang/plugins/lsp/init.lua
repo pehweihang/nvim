@@ -141,4 +141,96 @@ return {
 			})
 		end,
 	},
+	{
+		"glepnir/lspsaga.nvim",
+		dependencies = {
+			"kyazdani42/nvim-web-devicons",
+		},
+		cmd = "Lspsaga",
+		keys = { -- LSP finder - Find the symbol's definition
+			-- If there is no definition, it will instead be hidden
+			-- When you use an action in finder like "open vsplit",
+			-- you can use <C-t> to jump back
+			{ "gh", "<cmd>Lspsaga lsp_finder<CR>", mode = "n" },
+
+			-- Code action
+			{ "<leader>ca", "<cmd>Lspsaga code_action<CR>", mode = { "n", "v" } },
+
+			-- Rename all occurrences of the hovered word for the selected files
+			{ "<leader>rn", "<cmd>Lspsaga rename ++project<CR>", mode = "n" },
+
+			-- Go to definition
+			{ "gd", "<cmd>Lspsaga goto_definition<CR>", mode = "n" },
+
+			-- Show line diagnostics
+			-- You can pass argument ++unfocus to
+			-- unfocus the show_line_diagnostics floating window
+			{ "gl", "<cmd>Lspsaga show_line_diagnostics<CR>", mode = "n" },
+
+			-- Show cursor diagnostics
+			-- Like show_line_diagnostics, it supports passing the ++unfocus argument
+			{ "gL", "<cmd>Lspsaga show_cursor_diagnostics<CR>", mode = "n" },
+
+			-- Diagnostic jump
+			-- You can use <C-o> to jump back to your previous location
+			{ "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n" },
+			{ "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = "n" },
+
+			-- Diagnostic jump with filters such as only jumping to an error
+			{
+				"[E",
+				function()
+					require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+				end,
+				mode = "n",
+			},
+			{
+				"]E",
+				function()
+					require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+				end,
+				mode = "n",
+			},
+
+			-- Toggle outline
+			{ "<leader>o", "<cmd>Lspsaga outline<CR>", mode = "n" },
+
+			-- Hover Doc
+			-- If there is no hover doc,
+			-- there will be a notification stating that
+			-- there is no information available.
+			-- To disable it just use ":Lspsaga hover_doc ++quiet"
+			-- Pressing the key twice will enter the hover window
+			{ "K", "<cmd>Lspsaga hover_doc<CR>", mode = "n" },
+
+			-- Call hierarchy
+			{ "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>", mode = "n" },
+			{ "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>", mode = "n" },
+		},
+		config = function()
+			require("lspsaga").setup({
+				symbol_in_winbar = {
+					enable = false,
+				},
+				beacon = {
+					enable = false,
+				},
+				lightbulb = {
+					enable = false,
+				},
+				ui = {
+					border = "rounded",
+					expand = "",
+					collapse = "",
+					preview = " ",
+					code_action = " ",
+					diagnostic = " ",
+					incoming = " ",
+					outgoing = " ",
+					hover = " ",
+					kind = {},
+				},
+			})
+		end,
+	},
 }
