@@ -36,7 +36,7 @@ return {
 		},
 		opts = {
 			ensure_installed = {
-				"sumneko_lua",
+				"lua-language-server",
 				"cssls",
 				"html",
 				"tsserver",
