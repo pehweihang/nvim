@@ -1,9 +1,8 @@
 return {
 	"catppuccin/nvim",
+	priority = 100,
 	config = function()
-		vim.g.catppuccin_flavour = "frappe"
-
-		local colors = require("catppuccin.palettes").get_palette()
+		vim.g.catppuccin_flavour = "latte"
 
 		require("catppuccin").setup({
 			dim_inactive = {
@@ -37,7 +36,7 @@ return {
 				beacon = false,
 				cmp = true,
 				coc_nvim = false,
-				dashboard = false,
+				dashboard = true,
 				fern = false,
 				fidget = true,
 				gitgutter = false,
@@ -99,7 +98,13 @@ return {
 					custom_bg = "NONE",
 				},
 			},
-			highlight_overrides = { all = { FloatBorder = { bg = colors.mantle } } },
+			highlight_overrides = {
+				all = function(colors)
+					return {
+						FloatBorder = { bg = colors.mantle },
+					}
+				end,
+			},
 		})
 
 		vim.cmd.colorscheme("catppuccin")

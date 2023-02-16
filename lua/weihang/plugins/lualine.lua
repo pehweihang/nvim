@@ -1,7 +1,7 @@
 return {
 	"nvim-lualine/lualine.nvim", -- statusline
 	dependencies = {
-		"folke/noice.nvim",
+		-- "folke/noice.nvim",
 	},
 	config = function()
 		local hide_in_width = function()
@@ -78,14 +78,14 @@ return {
 				lualine_b = { branch, diff },
 				lualine_c = {
 					"filename",
-					{ require("noice").api.statusline.mode.get, cond = require("noice").api.statusline.mode.has },
+					-- { require("noice").api.statusline.mode.get, cond = require("noice").api.statusline.mode.has },
 				},
 				-- lualine_x = { "encoding", "fileformat", "filetype" },
 				lualine_x = {
-					{
-						require("noice").api.status.command.get,
-						cond = require("noice").api.status.command.has,
-					},
+					-- {
+						-- require("noice").api.status.command.get,
+						-- cond = require("noice").api.status.command.has,
+					-- },
           "searchcount",
 					diagnostics,
 				},
