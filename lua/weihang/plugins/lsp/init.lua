@@ -36,7 +36,7 @@ return {
 		},
 		opts = {
 			ensure_installed = {
-				"lua-language-server",
+				"lua_ls",
 				"cssls",
 				"html",
 				"tsserver",
