@@ -48,6 +48,6 @@ vim.keymap.set("v", ">", ">gv", opts)
 -- Move text up and down
 vim.keymap.set("v", "J", "<cmd>m .+1<CR>gv=gv", opts)
 vim.keymap.set("v", "K", "<cmd>m .-2<CR>gv=gv", opts)
-vim.keymap.set("v", "p", '"_dP', opts)
+vim.keymap.set("x", "p", '"_dP', opts)
 
 vim.keymap.set("s", "<BS>", "<C-o>s", opts)
