@@ -12,12 +12,10 @@ return {
 	config = function()
 		require("nvim-tree").setup({
 			auto_reload_on_write = true,
-			create_in_closed_folder = false,
 			disable_netrw = true,
 			hijack_cursor = false,
 			hijack_netrw = true,
 			hijack_unnamed_buffer_when_opening = false,
-			open_on_tab = false,
 			ignore_buf_on_tab_change = {},
 			sort_by = "name",
 			root_dirs = {},
@@ -26,24 +24,15 @@ return {
 			reload_on_bufenter = false,
 			respect_buf_cwd = false,
 			on_attach = "disable", -- function(bufnr). If nil, will use the deprecated mapping strategy
-			remove_keymaps = false, -- boolean (disable totally or not) or list of key (lhs)
 			view = {
 				adaptive_size = true,
 				centralize_selection = false,
 				width = 30,
-				hide_root_folder = false,
 				side = "left",
 				preserve_window_proportions = false,
 				number = false,
 				relativenumber = false,
 				signcolumn = "yes",
-				-- @deprecated
-				mappings = {
-					custom_only = false,
-					list = {
-						-- user mappings go here
-					},
-				},
 				float = {
 					enable = false,
 					open_win_config = {
