@@ -60,7 +60,7 @@ return {
 				overseer = false,
 				pounce = false,
 				semantic_tokens = false,
-				symbols_outline = false,
+				symbols_outline = true,
 				telekasten = false,
 				telescope = true,
 				treesitter = true,
