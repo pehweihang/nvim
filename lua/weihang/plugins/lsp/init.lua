@@ -107,7 +107,21 @@ return {
 
 			local sources = {
 				-- ts/js
-				formatting.prettier,
+				formatting.prettier.with({
+					filetypes = {
+						"javascript",
+						"typescript",
+						"css",
+						"scss",
+						"html",
+						"json",
+						"yaml",
+						"markdown",
+						"graphql",
+						"md",
+						"txt",
+					},
+				}),
 				formatting.eslint_d,
 
 				-- python
@@ -225,6 +239,11 @@ return {
 				},
 				rename = {
 					in_select = false,
+					keys = {
+						quit = "q",
+						exec = "<CR>",
+						select = "<Tab>",
+					},
 				},
 				ui = {
 					border = "rounded",
