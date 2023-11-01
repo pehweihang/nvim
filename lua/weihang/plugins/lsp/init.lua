@@ -240,7 +240,6 @@ return {
 				rename = {
 					in_select = false,
 					keys = {
-						quit = "q",
 						exec = "<CR>",
 						select = "<Tab>",
 					},
