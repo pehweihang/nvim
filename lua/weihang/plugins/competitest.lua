@@ -8,7 +8,7 @@ return {
     { "<leader>cpc", "<cmd>CompetiTest receive contest<cr>",   mode = "n" },
     { "<leader>cpt", "<cmd>CompetiTest receive testcases<cr>", mode = "n" },
     { "<leader>cpp", "<cmd>CompetiTest receive problem<cr>",   mode = "n" },
-    { "<leader>cpr", "<cmd>CompetiTest run_testcase<cr>",      mode = "n" },
+    { "<leader>cpr", "<cmd>CompetiTest run<cr>",      mode = "n" },
     { "<leader>cpa", "<cmd>CompetiTest add_testcase<cr>",      mode = "n" },
     { "<leader>cpe", "<cmd>CompetiTest edit_testcase<cr>",     mode = "n" },
     { "<leader>cpd", "<cmd>CompetiTest delete_testcase<cr>",   mode = "n" },
