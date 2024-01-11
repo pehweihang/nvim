@@ -4,7 +4,7 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-			"ray-x/lsp_signature.nvim", -- function help
+			-- "ray-x/lsp_signature.nvim", -- function help
 			"jose-elias-alvarez/null-ls.nvim",
 		},
 		config = function()
