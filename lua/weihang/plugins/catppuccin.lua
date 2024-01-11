@@ -2,7 +2,7 @@ return {
 	"catppuccin/nvim",
 	priority = 100,
 	config = function()
-		vim.g.catppuccin_flavour = "latte"
+		vim.g.catppuccin_flavour = "mocha"
 
 		require("catppuccin").setup({
 			dim_inactive = {
