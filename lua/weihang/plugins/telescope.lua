@@ -59,7 +59,7 @@ return {
       mode = "n",
       opts,
     },
-    { "<leader>t", "<cmd>Telescope live_grep<cr>",             mode = "n", opts },
+    { "<leader>t", "<cmd>Telescope live_grep<cr>",           mode = "n", opts },
     {
       "<leader>b",
       "<cmd>Telescope buffers previewer=false<cr>",
@@ -171,13 +171,12 @@ return {
           hidden = true,
           find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
         },
-        -- Default configuration for builtin pickers goes here:
-        -- picker_name = {
-        --   picker_config_key = value,
-        --   ...
-        -- }
-        -- Now the picker_config_key will be applied every time you call this
-        -- builtin picker
+        live_grep = {
+          file_ignore_patterns = { "node_modules", ".git", ".venv" },
+          additional_args = function(_)
+            return { "--hidden" }
+          end,
+        },
       },
       extensions = {
         media_files = {
