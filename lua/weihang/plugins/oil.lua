@@ -1,5 +1,6 @@
 return {
   "stevearc/oil.nvim",
+  enabled = false,
   keys = {
     { "<leader>e", "<cmd>Oil --float<cr>", "n", { noremap = true, silent = true }, desc = { "Open oil in float" } },
     { "<leader>E", "<cmd>Oil<cr>",         "n", { noremap = true, silent = true }, desc = { "Open oil" } },
