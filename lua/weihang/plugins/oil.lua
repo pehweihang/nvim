@@ -4,6 +4,7 @@ return {
   keys = {
     { "<leader>e", "<cmd>Oil --float<cr>", "n", { noremap = true, silent = true }, desc = { "Open oil in float" } },
     { "<leader>E", "<cmd>Oil<cr>",         "n", { noremap = true, silent = true }, desc = { "Open oil" } },
+  },
 	config = function()
 		require("oil").setup({
 			config = {

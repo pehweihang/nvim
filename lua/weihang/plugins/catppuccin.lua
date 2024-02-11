@@ -41,7 +41,7 @@ return {
 				gitsigns = true,
 				harpoon = true,
 				headlines = true,
-				ident_blankline = {
+				indent_blankline = {
 					enabled = true,
 					scope_color = "",
 					colored_indent_levels = false,
