@@ -1,15 +1,3 @@
--- Use 'q' to quit from common plugins
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	group = vim.api.nvim_create_augroup("EasyQuit", {}),
-	pattern = { "qf", "help", "man", "lspinfo", "spectre_panel", "lir", "fugitive" },
-	callback = function()
-		vim.cmd([[
-      nnoremap <silent> <buffer> q :close<CR> 
-      set nobuflisted 
-    ]])
-	end,
-})
-
 --  4 spaces indentation in python
 vim.api.nvim_create_autocmd({"FileType"}, {
   group = vim.api.nvim_create_augroup("TabSpaces", {}),
@@ -46,18 +34,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	pattern = { "python" },
 	callback = function()
 		vim.keymap.set("n", "<F5>", "<cmd>w<CR><cmd>!time python ./%:r.py < %:r.in<CR>")
-	end,
-})
-
--- Remove statusline and tabline when in Alpha
-vim.api.nvim_create_autocmd({ "User" }, {
-  group = vim.api.nvim_create_augroup("HideAlpha", {}),
-	pattern = { "AlphaReady" },
-	callback = function()
-		vim.cmd([[
-      " set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
-      set laststatus=0 | autocmd BufUnload <buffer> set laststatus=2
-    ]])
 	end,
 })
 
