@@ -1,12 +1,38 @@
-local opts = { silent = true, noremap = true }
+local opts = { noremap = true, silent = true }
 
 return {
 	"folke/trouble.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	{ "<leader>d", "<cmd>TroubleToggle workspace_diagnostics<cr>", mode = "n", opts },
-	{ "<leader>D", "<cmd>TroubleToggle document_diagnostics<cr>", mode = "n", opts },
-	{ "[d", "<cmd>lua require('trouble').next({ skip_groups = true, jump = true })<cr>", mode = "n", opts },
-	{ "]d", "<cmd>lua require('trouble').previous({ skip_groups = true, jump = true })<cr>", mode = "n", opts },
+	keys = {
+		{
+			"<leader>d",
+			"<cmd>TroubleToggle workspace_diagnostics<cr>",
+			mode = "n",
+			desc = "Toggle Trouble workspace diagnostics",
+			opts,
+		},
+		{
+			"<leader>D",
+			"<cmd>TroubleToggle document_diagnostics<cr>",
+			mode = "n",
+			desc = "Toggle Trouble document diagnostics",
+			opts,
+		},
+		{
+			"[d",
+			"<cmd>lua require('trouble').next({ skip_groups = true, jump = true })<cr>",
+			mode = "n",
+			desc = "Jump to next diagnostic",
+			opts,
+		},
+		{
+			"]d",
+			"<cmd>lua require('trouble').previous({ skip_groups = true, jump = true })<cr>",
+			mode = "n",
+			desc = "Jump to previous diagnostic",
+			opts,
+		},
+	},
 	config = function()
 		require("trouble").setup({
 			position = "bottom",

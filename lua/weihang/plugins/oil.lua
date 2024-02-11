@@ -1,10 +1,12 @@
+local opts = { noremap = true, silent = true }
 return {
 	"stevearc/oil.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-  keys = {
-    { "<leader>e", "<cmd>Oil --float<cr>", "n", { noremap = true, silent = true }, desc = { "Open oil in float" } },
-    { "<leader>E", "<cmd>Oil<cr>",         "n", { noremap = true, silent = true }, desc = { "Open oil" } },
-  },
+	lazy = false,
+	keys = {
+		{ "<leader>e", "<cmd>Oil --float<cr>", "n", opts, desc = "Open oil in float" },
+		{ "<leader>E", "<cmd>Oil<cr>", "n", opts, desc = "Open oil" },
+	},
 	config = function()
 		require("oil").setup({
 			config = {
