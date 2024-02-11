@@ -80,7 +80,6 @@ return {
 			keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 			keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 			keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-			vim.api.nvim_buf_create_user_command(bufnr, "Format", "lua vim.lsp.buf.format()", {})
 		end
 
 		local servers_settings = {
