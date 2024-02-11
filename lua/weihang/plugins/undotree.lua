@@ -1,4 +1,8 @@
 return {
-	"mbbill/undotree", -- undo tree;
-	keys = { { "<leader>u", "<cmd>UndotreeToggle<CR><C-w>h", mode = "n", desc = "UndoTree" } },
+  "mbbill/undotree",
+	keys = { { "<leader>u", "<cmd>UndotreeToggle<CR>", mode = "n", desc = "UndoTree" } },
+  config = function ()
+    vim.g.undotree_WindowLayout = 1
+    vim.g.undotree_SetFocusWhenToggle = 1
+  end
 }

@@ -1,7 +1,6 @@
 return {
-  "j-hui/fidget.nvim",
-  tag = "legacy",
-  config = function ()
-    require("fidget").setup()
-  end
+	"j-hui/fidget.nvim",
+	config = function()
+		require("fidget").setup({})
+	end,
 }

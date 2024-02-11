@@ -1,24 +1,28 @@
 return {
 	"catppuccin/nvim",
-	priority = 100,
+	name = "catppuccin",
+	priority = 1000,
 	config = function()
-		vim.g.catppuccin_flavour = "mocha"
-
 		require("catppuccin").setup({
+			flavour = "mocha",
+			background = {
+				light = "latte",
+				dark = "mocha",
+			},
+			transparent_background = false,
+			show_end_of_buffer = false,
+			term_colors = false,
 			dim_inactive = {
-				enabled = false,
+				enabled = true,
 				shade = "dark",
 				percentage = 0.15,
 			},
-			transparent_background = false,
-			term_colors = false,
-			compile = {
-				enabled = false,
-				path = vim.fn.stdpath("cache") .. "/catppuccin",
-			},
+			no_italic = false,
+			no_bold = false,
+			no_underline = false,
 			styles = {
 				comments = { "italic" },
-				conditionals = { "italic" },
+				conditionals = {},
 				loops = {},
 				functions = {},
 				keywords = {},
@@ -30,54 +34,21 @@ return {
 				types = {},
 				operators = {},
 			},
+			color_overrides = {},
+			custom_highlights = {},
 			integrations = {
-				aerial = false,
-				barbar = false,
-				beacon = false,
-				cmp = true,
-				coc_nvim = false,
-				dashboard = true,
-				fern = false,
 				fidget = true,
-				gitgutter = false,
 				gitsigns = true,
-				harpoon = false,
-				hop = false,
-				illuminate = false,
-				leap = false,
-				lightspeed = false,
-				lsp_saga = true,
-				lsp_trouble = true,
+				harpoon = true,
+				headlines = true,
+				ident_blankline = {
+					enabled = true,
+					scope_color = "",
+					colored_indent_levels = false,
+				},
 				markdown = true,
 				mason = true,
-				mini = false,
-				neogit = false,
-				neotest = false,
-				neotree = false,
-				noice = true,
-				notify = true,
-				nvimtree = true,
-				overseer = false,
-				pounce = false,
-				semantic_tokens = false,
-				symbols_outline = true,
-				telekasten = false,
-				telescope = true,
-				treesitter = true,
-				treesitter_context = false,
-				ts_rainbow = false,
-				vim_sneak = false,
-				vimwiki = false,
-				which_key = false,
-
-				dap = {
-					enabled = false,
-					enable_ui = false,
-				},
-				indent_blankline = {
-					enabled = true,
-					colored_indent_levels = true,
-				},
+				cmp = true,
 				native_lsp = {
 					enabled = true,
 					virtual_text = {
@@ -92,18 +63,18 @@ return {
 						warnings = { "underline" },
 						information = { "underline" },
 					},
+					inlay_hints = {
+						background = true,
+					},
 				},
-				navic = {
-					enabled = false,
-					custom_bg = "NONE",
+				semantic_tokens = true,
+				treesitter_context = true,
+				treesitter = true,
+				telescope = {
+					enabled = true,
+					-- style = "nvchad"
 				},
-			},
-			highlight_overrides = {
-				all = function(colors)
-					return {
-						FloatBorder = { bg = colors.mantle },
-					}
-				end,
+				lsp_trouble = false,
 			},
 		})
 

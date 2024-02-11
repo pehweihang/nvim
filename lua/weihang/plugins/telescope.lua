@@ -1,209 +1,94 @@
 local opts = { noremap = true, silent = true }
 
 return {
-  "nvim-telescope/telescope.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    {
-      "ahmedkhalf/project.nvim",
-      config = function()
-        require("project_nvim").setup({
-          ---@usage set to false to disable project.nvim.
-          --- This is on by default since it's currently the expected behavior.
-          active = true,
+	"nvim-telescope/telescope.nvim",
+	dependencies = { "nvim-lua/plenary.nvim", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
+	keys = {
+		{
+			"<leader>f",
+			"<cmd>Telescope find_files previewer=false<cr>",
+			mode = "n",
+			desc = "Telescope find files",
+			opts,
+		},
+		{ "<leader>t", "<cmd>Telescope live_grep<cr>", mode = "n", desc = "Telescope live grep", opts },
+		{
+			"<leader>b",
+			"<cmd>Telescope buffers previewer=false<cr>",
+			mode = "n",
+			desc = "Telescope find buffers",
+			opts,
+		},
+	},
+	config = function()
+		local telescope = require("telescope")
 
-          on_config_done = nil,
+		telescope.load_extension("fzf")
 
-          ---@usage set to true to disable setting the current-woriking directory
-          --- Manual mode doesn't automatically change your root directory, so you have
-          --- the option to manually do so using `:ProjectRoot` command.
-          manual_mode = false,
+		local actions = require("telescope.actions")
+		local layout_actions = require("telescope.actions.layout")
 
-          ---@usage Methods of detecting the root directory
-          --- Allowed values: **"lsp"** uses the native neovim lsp
-          --- **"pattern"** uses vim-rooter like glob pattern matching. Here
-          --- order matters: if one is not detected, the other is used as fallback. You
-          --- can also delete or rearangne the detection methods.
-          -- detection_methods = { "lsp", "pattern" }, -- NOTE: lsp detection will get annoying with multiple langs in one project
-          detection_methods = { "pattern" },
+		telescope.setup({
+			defaults = {
+				prompt_prefix = " ",
+				selection_caret = " ",
+				path_display = { "smart" },
 
-          ---@usage patterns used to detect root dir, when **"pattern"** is in detection_methods
-          patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+				layout_strategy = "vertical",
+				layout_config = {
+					prompt_position = "top",
+					mirror = true,
+				},
+				mappings = {
+					i = {
+						["<esc>"] = actions.close,
+						["<C-p>"] = layout_actions.toggle_preview,
 
-          ---@ Show hidden files in telescope when searching for files in a project
-          show_hidden = false,
+						["<C-j>"] = actions.move_selection_next,
+						["<C-k>"] = actions.move_selection_previous,
 
-          ---@usage When set to false, you will get a message when project.nvim changes your directory.
-          -- When set to false, you will get a message when project.nvim changes your directory.
-          silent_chdir = true,
+						["<C-c>"] = actions.close,
 
-          ---@usage list of lsp client names to ignore when using **lsp** detection. eg: { "efm", ... }
-          ignore_lsp = {},
+						["<CR>"] = function()
+							vim.cmd([[:stopinsert]])
+							vim.cmd([[call feedkeys("\<CR>")]])
+						end,
+						-- ["<CR>"] = actions.select_default,
 
-          ---@type string
-          ---@usage path to store the project history for use in telescope
-          datapath = vim.fn.stdpath("data"),
-        })
-      end,
-    },
-    "nvim-telescope/telescope-file-browser.nvim",
-    "nvim-telescope/telescope-media-files.nvim",
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    "gbrlsnchs/telescope-lsp-handlers.nvim",
-  },
-  ft = { "alpha" },
-  keys = {
-    {
-      "<leader>f",
-      "<cmd>Telescope find_files previewer=false<cr>",
-      mode = "n",
-      opts,
-    },
-    { "<leader>t", "<cmd>Telescope live_grep<cr>",           mode = "n", opts },
-    {
-      "<leader>b",
-      "<cmd>Telescope buffers previewer=false<cr>",
-      mode = "n",
-      opts,
-    },
-    { "<leader>d", "<cmd>Telescope diagnostics bufnr=0<CR>", mode = "n", opts },
-    { "<leader>D", "<cmd>Telescope diagnostics<CR>",         mode = "n", opts },
-  },
-  config = function()
-    local status_ok, telescope = pcall(require, "telescope")
-    if not status_ok then
-      return
-    end
+						["<C-u>"] = actions.preview_scrolling_up,
+						["<C-d>"] = actions.preview_scrolling_down,
+					},
 
-    telescope.load_extension("media_files")
-    telescope.load_extension("fzf")
-    telescope.load_extension("lsp_handlers")
-    telescope.load_extension("projects")
-    telescope.load_extension("file_browser")
+					n = {
+						["<esc>"] = actions.close,
+						["<C-p>"] = layout_actions.toggle_preview,
 
-    local actions = require("telescope.actions")
-    local layout_actions = require("telescope.actions.layout")
-    local fb_actions = require("telescope").extensions.file_browser.actions
+						["<CR>"] = actions.select_default,
 
-    telescope.setup({
-      defaults = {
+						["j"] = actions.move_selection_next,
+						["k"] = actions.move_selection_previous,
 
-        prompt_prefix = " ",
-        selection_caret = " ",
-        path_display = { "smart" },
+						["gg"] = actions.move_to_top,
+						["G"] = actions.move_to_bottom,
 
-        layout_strategy = "vertical",
-        layout_config = {
-          prompt_position = "top",
-          mirror = true,
-        },
-        mappings = {
-          i = {
-            ["<esc>"] = actions.close,
-            ["<C-p>"] = layout_actions.toggle_preview,
-
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
-
-            ["<C-c>"] = actions.close,
-
-            ["<Down>"] = actions.move_selection_next,
-            ["<Up>"] = actions.move_selection_previous,
-            ["<CR>"] = function()
-              vim.cmd([[:stopinsert]])
-              vim.cmd([[call feedkeys("\<CR>")]])
-            end,
-            -- ["<CR>"] = actions.select_default,
-            ["<C-x>"] = actions.select_horizontal,
-            ["<C-v>"] = actions.select_vertical,
-            ["<C-t>"] = actions.select_tab,
-
-            ["<C-u>"] = actions.preview_scrolling_up,
-            ["<C-d>"] = actions.preview_scrolling_down,
-
-            ["<PageUp>"] = actions.results_scrolling_up,
-            ["<PageDown>"] = actions.results_scrolling_down,
-
-            ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-            ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
-            ["<C-q>"] = actions.send_to_qflist,    -- + actions.open_qflist,
-            ["<M-q>"] = actions.send_selected_to_qflist, -- + actions.open_qflist,
-            ["<C-l>"] = actions.complete_tag,
-            ["<C-_>"] = actions.which_key,         -- keys from pressing <C-/>
-          },
-
-          n = {
-            ["<esc>"] = actions.close,
-            ["<CR>"] = actions.select_default,
-            ["<C-x>"] = actions.select_horizontal,
-            ["<C-v>"] = actions.select_vertical,
-            ["<C-t>"] = actions.select_tab,
-            ["<C-p>"] = layout_actions.toggle_preview,
-
-            ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-            ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
-            ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-            ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-
-            ["j"] = actions.move_selection_next,
-            ["k"] = actions.move_selection_previous,
-            ["H"] = actions.move_to_top,
-            ["M"] = actions.move_to_middle,
-            ["L"] = actions.move_to_bottom,
-
-            ["<Down>"] = actions.move_selection_next,
-            ["<Up>"] = actions.move_selection_previous,
-            ["gg"] = actions.move_to_top,
-            ["G"] = actions.move_to_bottom,
-
-            ["<C-u>"] = actions.preview_scrolling_up,
-            ["<C-d>"] = actions.preview_scrolling_down,
-
-            ["<PageUp>"] = actions.results_scrolling_up,
-            ["<PageDown>"] = actions.results_scrolling_down,
-
-            ["?"] = actions.which_key,
-          },
-        },
-      },
-      pickers = {
-        find_files = {
-          hidden = true,
-          find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
-        },
-        live_grep = {
-          file_ignore_patterns = { "node_modules", ".git", ".venv" },
-          additional_args = function(_)
-            return { "--hidden" }
-          end,
-        },
-      },
-      extensions = {
-        media_files = {
-          -- filetypes whitelist
-          -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-          filetypes = { "png", "webp", "jpg", "jpeg" },
-          find_cmd = "rg", -- find command (defaults to `fd`)
-        },
-        -- Your extension configuration goes here:
-        file_browser = {
-          theme = "ivy",
-          hijack_netrw = true,
-          mappings = {
-            ["i"] = {
-              -- your custom insert mode mappings
-            },
-            ["n"] = {
-              ["c"] = fb_actions.create,
-              ["r"] = fb_actions.rename,
-              ["m"] = fb_actions.move,
-              ["y"] = fb_actions.copy,
-              ["d"] = fb_actions.remove,
-              ["o"] = fb_actions.open,
-            },
-          },
-        },
-      },
-    })
-  end,
+						["<C-u>"] = actions.preview_scrolling_up,
+						["<C-d>"] = actions.preview_scrolling_down,
+					},
+				},
+			},
+			pickers = {
+				find_files = {
+					hidden = true,
+					find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
+				},
+				live_grep = {
+					file_ignore_patterns = { "node_modules", ".git", ".venv" },
+					additional_args = function(_)
+						return { "--hidden" }
+					end,
+				},
+			},
+			extensions = {},
+		})
+	end,
 }
