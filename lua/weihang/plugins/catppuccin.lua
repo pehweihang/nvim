@@ -67,6 +67,7 @@ return {
 						background = true,
 					},
 				},
+        neogit = true,
 				semantic_tokens = true,
 				treesitter_context = true,
 				treesitter = true,
