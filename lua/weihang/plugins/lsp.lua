@@ -5,6 +5,10 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		"b0o/SchemaStore.nvim",
 	},
+	toggle_inlay_hints = function()
+		local bufnr = vim.api.nvim_get_current_buf()
+		vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
+	end,
 	config = function()
 		require("mason").setup({
 			ui = {
@@ -90,7 +94,7 @@ return {
 					bufnr,
 					"n",
 					"<leader>lh",
-					vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr)),
+					"<cmd>lua require('weihang.plugins.lsp').toggle_inlay_hints()<cr>",
 					opts
 				)
 			end
@@ -102,6 +106,7 @@ return {
 					diagnostics = {
 						globals = { "vim" },
 					},
+					hint = { enable = true },
 				},
 			},
 			jsonls = {
