@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
+		"b0o/SchemaStore.nvim",
 	},
 	config = function()
 		require("mason").setup({
@@ -101,6 +102,18 @@ return {
 					diagnostics = {
 						globals = { "vim" },
 					},
+				},
+			},
+			jsonls = {
+				json = {
+					schemas = require("schemastore").json.schemas(),
+					validate = { enable = true },
+				},
+			},
+			yamlls = {
+				yaml = {
+					schemas = require("schemastore").yaml.schemas(),
+					schemaStore = { enable = false, url = "" },
 				},
 			},
 		}
