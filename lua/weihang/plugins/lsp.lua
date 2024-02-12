@@ -64,6 +64,7 @@ return {
 		vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 			border = "rounded",
 		})
+		require("lspconfig.ui.windows").default_options.border = "rounded"
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
@@ -83,7 +84,7 @@ return {
 
 			if client.supports_method("textDocument/inlayHint") then
 				vim.lsp.inlay_hint.enable(bufnr, true)
-       -- toggle inlay hints
+				-- toggle inlay hints
 				keymap(
 					bufnr,
 					"n",
