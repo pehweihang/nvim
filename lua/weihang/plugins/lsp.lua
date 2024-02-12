@@ -68,7 +68,7 @@ return {
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-		local on_attach = function(_, bufnr)
+		local on_attach = function(client, bufnr)
 			local opts = { noremap = true, silent = true }
 			local keymap = vim.api.nvim_buf_set_keymap
 			keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
@@ -80,6 +80,18 @@ return {
 			keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 			keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 			keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+
+			if client.supports_method("textDocument/inlayHint") then
+				vim.lsp.inlay_hint.enable(bufnr, true)
+       -- toggle inlay hints
+				keymap(
+					bufnr,
+					"n",
+					"<leader>lh",
+					vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr)),
+					opts
+				)
+			end
 		end
 
 		local servers_settings = {
