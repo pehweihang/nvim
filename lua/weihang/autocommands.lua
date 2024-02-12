@@ -1,6 +1,6 @@
 --  4 spaces indentation in python
-vim.api.nvim_create_autocmd({"FileType"}, {
-  group = vim.api.nvim_create_augroup("TabSpaces", {}),
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	group = vim.api.nvim_create_augroup("TabSpaces", {}),
 	pattern = "python",
 	command = "setlocal shiftwidth=4 tabstop=4",
 })
