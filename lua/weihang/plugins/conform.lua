@@ -27,8 +27,9 @@ return {
 				json = { { "prettierd", "prettier" } },
 				jsonc = { { "prettierd", "prettier" } },
 				yaml = { { "prettierd", "prettier" } },
-				markdown = { { "prettierd", "prettier" } },
 				graphql = { { "prettierd", "prettier" } },
+
+				markdown = { "markdownlint" },
 
 				python = { "ruff_fix", "ruff_format" },
 
