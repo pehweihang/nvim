@@ -62,9 +62,7 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = false }),
 					["<C-Space>"] = cmp.mapping(cmp.mapping.complete()),
 					["<Tab>"] = cmp.mapping(function(fallback)
-						if luasnip.expandable() then
-							luasnip.expand()
-						elseif luasnip.expand_or_locally_jumpable() then
+						if luasnip.expand_or_locally_jumpable() then
 							luasnip.expand_or_jump()
 						else
 							fallback()
@@ -98,9 +96,9 @@ return {
 					{ name = "path" },
 				}),
 				formatting = {
-					fields = { "kind", "abbr", "menu" },
+					fields = { "abbr", "kind", "menu" },
 					format = function(entry, vim_item)
-						vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+						vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
 						vim_item.menu = ({
 							buffer = "[Buffer]",
 							nvim_lsp = "[LSP]",
