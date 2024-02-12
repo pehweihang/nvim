@@ -38,9 +38,9 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "gitcommit", "markdown", "org" },
-  callback = function()
-    vim.opt_local.spell = true
-    vim.opt.conceallevel = 1
-  end,
+	pattern = { "gitcommit", "markdown", "org" },
+	callback = function()
+		vim.opt_local.spell = true
+		vim.opt.conceallevel = 1
+	end,
 })
