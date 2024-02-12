@@ -38,11 +38,11 @@ return {
 					concealcursor = "nvic",
 				},
 				-- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
-				delete_to_trash = false,
+				delete_to_trash = true,
 				-- Skip the confirmation popup for simple operations
 				skip_confirm_for_simple_edits = false,
 				-- Change this to customize the command used when deleting to trash
-				trash_command = "trash-put",
+				trash_command = "send2trash",
 				-- Selecting a new/moved/renamed file or directory will prompt you to save changes first
 				prompt_save_on_select_new_entry = true,
 				-- Oil will automatically delete hidden buffers after this delay
