@@ -147,5 +147,15 @@ return {
 				},
 			},
 		})
+
+		vim.api.nvim_create_autocmd({ "VimEnter" }, {
+			group = vim.api.nvim_create_augroup("OilOpen", {}),
+			callback = vim.schedule_wrap(function(data)
+				if data.file == "" or vim.fn.isdirectory(data.file) ~= 0 then
+					vim.print(data.file)
+					require("oil").open()
+				end
+			end),
+		})
 	end,
 }
