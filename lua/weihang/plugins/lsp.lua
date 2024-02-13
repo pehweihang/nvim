@@ -1,14 +1,10 @@
-return {
+M = {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"b0o/SchemaStore.nvim",
 	},
-	toggle_inlay_hints = function()
-		local bufnr = vim.api.nvim_get_current_buf()
-		vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
-	end,
 	config = function()
 		require("mason").setup({
 			ui = {
@@ -71,35 +67,6 @@ return {
 		})
 		require("lspconfig.ui.windows").default_options.border = "rounded"
 
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-		local on_attach = function(client, bufnr)
-			local opts = { noremap = true, silent = true }
-			local keymap = vim.api.nvim_buf_set_keymap
-			keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-			keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-			keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-			keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-			keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-			keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-			keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-			keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-			keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-
-			if client.supports_method("textDocument/inlayHint") then
-				vim.lsp.inlay_hint.enable(bufnr, true)
-				-- toggle inlay hints
-				keymap(
-					bufnr,
-					"n",
-					"<leader>lh",
-					"<cmd>lua require('weihang.plugins.lsp').toggle_inlay_hints()<cr>",
-					opts
-				)
-			end
-		end
-
 		local servers_settings = {
 			lua_ls = {
 				Lua = {
@@ -126,11 +93,44 @@ return {
 		require("mason-lspconfig").setup_handlers({
 			function(server_name)
 				require("lspconfig")[server_name].setup({
-					capabilities = capabilities,
-					on_attach = on_attach,
+					capabilities = M.capabilities,
+					on_attach = M.on_attach,
 					settings = servers_settings[server_name],
 				})
 			end,
 		})
 	end,
 }
+
+M.toggle_inlay_hints = function()
+	local bufnr = vim.api.nvim_get_current_buf()
+	vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
+end
+
+M.on_attach = function(client, bufnr)
+	local opts = { noremap = true, silent = true }
+	local keymap = vim.api.nvim_buf_set_keymap
+	keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+	keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+
+	if client.supports_method("textDocument/inlayHint") then
+		vim.lsp.inlay_hint.enable(bufnr, true)
+		-- toggle inlay hints
+		keymap(bufnr, "n", "<leader>lh", "<cmd>lua require('weihang.plugins.lsp').toggle_inlay_hints()<cr>", opts)
+	end
+end
+
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
+local require_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if require_ok then
+	M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
+end
+
+return M
