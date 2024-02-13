@@ -23,6 +23,7 @@ M = {
 				"bashls",
 				"jsonls",
 				"yamlls",
+				"rust-analyzer",
 			},
 		})
 
@@ -98,6 +99,7 @@ M = {
 					settings = servers_settings[server_name],
 				})
 			end,
+			["rust_analyzer"] = {},
 		})
 	end,
 }
@@ -130,7 +132,7 @@ end
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 local require_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if require_ok then
-	M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
+	M.capabilities = vim.tbl_deep_extend("force", M.capabilities, cmp_nvim_lsp.default_capabilities())
 end
 
 return M
