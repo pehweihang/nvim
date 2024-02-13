@@ -59,7 +59,7 @@ return {
 				mapping = {
 					["<C-p>"] = cmp.mapping.select_prev_item(),
 					["<C-n>"] = cmp.mapping.select_next_item(),
-					["<CR>"] = cmp.mapping.confirm({ select = false }),
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
 					["<C-Space>"] = cmp.mapping(cmp.mapping.complete()),
 					["<Tab>"] = cmp.mapping(function(fallback)
 						if luasnip.expand_or_locally_jumpable() then
