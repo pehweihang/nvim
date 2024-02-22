@@ -131,7 +131,7 @@ M.config = function()
 				settings = servers_settings[server_name],
 			})
 		end,
-		["rust_analyzer"] = {},
+		["rust_analyzer"] = function() end,
 	})
 end
 
