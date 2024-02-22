@@ -19,3 +19,5 @@ vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("x", "p", '"_dP', opts)
 
 vim.keymap.set("s", "<BS>", "<C-o>s", opts)
+
+vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
