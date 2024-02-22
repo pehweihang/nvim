@@ -17,4 +17,4 @@ if not status_ok then
 	return
 end
 
-lazy.setup({ { import = "weihang.plugins" } })
+lazy.setup({ import = "weihang.plugins" }, { ui = { border = "rounded" }, change_detection = { notify = false } })
