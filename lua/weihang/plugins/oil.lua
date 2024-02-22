@@ -148,14 +148,27 @@ return {
 			},
 		})
 
+		-- Open oil on VimEnter with no arguments
 		vim.api.nvim_create_autocmd({ "VimEnter" }, {
 			group = vim.api.nvim_create_augroup("OilOpen", {}),
 			callback = vim.schedule_wrap(function(data)
 				if data.file == "" or vim.fn.isdirectory(data.file) ~= 0 then
-					vim.print(data.file)
 					require("oil").open()
 				end
 			end),
+		})
+
+		-- Key bind to go to git root
+		vim.api.nvim_create_autocmd({ "FileType" }, {
+			group = vim.api.nvim_create_augroup("OilKeyBinds", {}),
+			pattern = "oil",
+			callback = function()
+				vim.keymap.set("n", "ggr", function()
+					local git_path = vim.fn.finddir(".git", ".;")
+					local cd_git = vim.fn.fnamemodify(git_path, ":h")
+					vim.api.nvim_command(string.format("edit %s", cd_git))
+				end, { silent = true, noremap = true, desc = "edit .git root" })
+			end,
 		})
 	end,
 }
