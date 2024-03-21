@@ -50,7 +50,7 @@ M.config = function()
 			"cssls",
 			"html",
 			"tsserver",
-			"pyright",
+			"basedpyright",
 			"clangd",
 			"bashls",
 			"jsonls",
