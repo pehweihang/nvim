@@ -132,6 +132,7 @@ M.config = function()
 			})
 		end,
 		["rust_analyzer"] = function() end,
+		["jdtls"] = function() end,
 	})
 end
 
