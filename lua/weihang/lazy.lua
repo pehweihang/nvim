@@ -20,4 +20,5 @@ end
 lazy.setup({
 	spec = { import = "weihang.plugins" },
 	{ ui = { border = "rounded" }, change_detection = { notify = false } },
+	concurrency = 1,
 })
