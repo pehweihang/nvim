@@ -68,6 +68,7 @@ return {
 					},
 				},
         neogit = true,
+        render_markdown = true,
 				semantic_tokens = true,
 				treesitter_context = true,
 				treesitter = true,
