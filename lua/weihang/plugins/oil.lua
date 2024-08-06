@@ -1,7 +1,7 @@
 local opts = { noremap = true, silent = true }
 return {
 	"stevearc/oil.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+	dependencies = { "echasnovski/mini.icons" },
 	lazy = false,
 	keys = {
 		{ "<leader>e", "<cmd>Oil<cr>", "n", opts, desc = "Open oil" },
