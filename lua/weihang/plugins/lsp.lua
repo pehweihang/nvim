@@ -49,7 +49,7 @@ M.config = function()
 			"lua_ls",
 			"cssls",
 			"html",
-			"tsserver",
+			"ts_ls",
 			"pyright",
 			"clangd",
 			"bashls",
