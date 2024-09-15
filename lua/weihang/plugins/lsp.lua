@@ -9,7 +9,7 @@ local M = {
 
 M.toggle_inlay_hints = function()
 	local bufnr = vim.api.nvim_get_current_buf()
-	vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({bufnr}), {bufnr})
 end
 
 M.on_attach = function(client, bufnr)
@@ -25,7 +25,7 @@ M.on_attach = function(client, bufnr)
 	keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 
 	if client.supports_method("textDocument/inlayHint") then
-		vim.lsp.inlay_hint.enable(bufnr, true)
+		vim.lsp.inlay_hint.enable(true, {bufnr})
 		-- toggle inlay hints
 		keymap(bufnr, "n", "<leader>lh", "<cmd>lua require('weihang.plugins.lsp').toggle_inlay_hints()<cr>", opts)
 	end
