@@ -11,8 +11,6 @@ return {
 
 			yaml = { "yamllint" },
 
-			markdown = { "markdownlint" },
-
 			python = { "ruff" },
 		}
 
