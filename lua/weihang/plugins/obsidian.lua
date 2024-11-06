@@ -17,55 +17,42 @@ return {
 	},
 	config = function()
 		require("obsidian").setup({
+			-- A list of workspace names, paths, and configuration overrides.
+			-- If you use the Obsidian app, the 'path' of a workspace should generally be
+			-- your vault root (where the `.obsidian` folder is located).
+			-- When obsidian.nvim is loaded by your plugin manager, it will automatically set
+			-- the workspace to the first workspace in the list whose `path` is a parent of the
+			-- current markdown file being edited.
 			workspaces = {
 				{
 					name = "personal",
-					path = "~/Documents/obsidian/",
+					path = "~/Documents/obsidian",
 				},
 			},
-			note_id_func = function(title)
-				return title
-			end,
-			note_frontmatter_func = function(note)
-				local out = { tags = note.tags }
 
-				if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-					for k, v in pairs(note.metadata) do
-						out[k] = v
-					end
-				end
+			daily_notes = {
+				-- Optional, if you keep daily notes in a separate directory.
+				folder = "Dailies",
+				-- Optional, if you want to change the date format for the ID of daily notes.
+				date_format = "%Y-%m-%d",
+				-- Optional, if you want to change the date format of the default alias of daily notes.
+				alias_format = "%B %-d, %Y",
+				-- Optional, default tags to add to each new daily note created.
+				default_tags = { "daily-notes" },
+				-- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
+				template = nil,
+			},
 
-				return out
-			end,
+			-- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
 			completion = {
+				-- Set to false to disable completion.
 				nvim_cmp = true,
-
 				-- Trigger completion at 2 chars.
 				min_chars = 2,
-
-				-- Where to put new notes created from completion. Valid options are
-				--  * "current_dir" - put new notes in same directory as the current buffer.
-				--  * "notes_subdir" - put new notes in the default notes subdirectory.
-				new_notes_location = "notes_subdir",
-
-				-- Either 'wiki' or 'markdown'.
-				preferred_link_style = "markdown",
-
-				-- Control how wiki links are completed with these (mutually exclusive) options:
-				--
-				-- 1. Whether to add the note ID during completion.
-				-- E.g. "[[Foo" completes to "[[foo|Foo]]" assuming "foo" is the ID of the note.
-				-- Mutually exclusive with 'prepend_note_path' and 'use_path_only'.
-				prepend_note_id = false,
-				-- 2. Whether to add the note path during completion.
-				-- E.g. "[[Foo" completes to "[[notes/foo|Foo]]" assuming "notes/foo.md" is the path of the note.
-				-- Mutually exclusive with 'prepend_note_id' and 'use_path_only'.
-				prepend_note_path = true,
-				-- 3. Whether to only use paths during completion.
-				-- E.g. "[[Foo" completes to "[[notes/foo]]" assuming "notes/foo.md" is the path of the note.
-				-- Mutually exclusive with 'prepend_note_id' and 'prepend_note_path'.
-				use_path_only = false,
 			},
+
+			-- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
+			-- way then set 'mappings = {}'.
 			mappings = {
 				-- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
 				["gf"] = {
@@ -81,40 +68,119 @@ return {
 					end,
 					opts = { buffer = true },
 				},
-				["<leader>f"] = {
+				-- Smart action depending on context, either follow link or toggle checkbox.
+				["<cr>"] = {
 					action = function()
-						vim.cmd("ObsidianQuickSwitch")
+						return require("obsidian").util.smart_action()
 					end,
+					opts = { buffer = true, expr = true },
 				},
 			},
-			ui = {
-				enable = true, -- set to false to disable all additional syntax features
-				update_debounce = 200, -- update delay after a text change (in milliseconds)
-				-- Define how various check-boxes are displayed
-				checkboxes = {
-					-- NOTE: the 'char' value has to be a single character, and the highlight groups are defined below.
-					[" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-					["x"] = { char = "", hl_group = "ObsidianDone" },
-					[">"] = { char = "", hl_group = "ObsidianRightArrow" },
-					["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
+
+			-- Where to put new notes. Valid options are
+			--  * "current_dir" - put new notes in same directory as the current buffer.
+			--  * "notes_subdir" - put new notes in the default notes subdirectory.
+			new_notes_location = "notes_subdir",
+
+			-- Optional, customize how note IDs are generated given an optional title.
+			---@param title string|?
+			---@return string
+			note_id_func = function(title)
+				-- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
+				-- In this case a note with the title 'My new note' will be given an ID that looks
+				-- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
+				local suffix = ""
+				if title ~= nil then
+					-- If title is given, transform it into valid file name.
+					suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", "")
+				else
+					-- If title is nil, just add 4 random uppercase letters to the suffix.
+					for _ = 1, 4 do
+						suffix = suffix .. string.char(math.random(65, 90))
+					end
+				end
+				return tostring(os.date("%Y%m%d%H%M%S")) .. "-" .. suffix
+			end,
+
+			-- Either 'wiki' or 'markdown'.
+			preferred_link_style = "wiki",
+
+			-- Optional, boolean or a function that takes a filename and returns a boolean.
+			-- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
+			disable_frontmatter = false,
+
+			-- Optional, for templates (see below).
+			templates = {
+				folder = "Templates",
+				date_format = "%Y-%m-%d",
+				time_format = "%H:%M",
+				-- A map for custom variables, the key should be the variable and the value a function
+				substitutions = {},
+			},
+
+			---@param url string
+			follow_url_func = function(url)
+				vim.fn.jobstart({ "xdg-open", url }) -- linux
+			end,
+
+			---@param img string
+			follow_img_func = function(img)
+				vim.fn.jobstart({ "xdg-open", img }) -- linux
+			end,
+
+			-- Optional, set to true if you use the Obsidian Advanced URI plugin.
+			-- https://github.com/Vinzent03/obsidian-advanced-uri
+			use_advanced_uri = false,
+
+			-- Optional, set to true to force ':ObsidianOpen' to bring the app to the foreground.
+			open_app_foreground = false,
+
+			picker = {
+				-- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', or 'mini.pick'.
+				name = "telescope.nvim",
+				-- Optional, configure key mappings for the picker. These are the defaults.
+				-- Not all pickers support all mappings.
+				note_mappings = {
+					-- Create a new note from your query.
+					new = "<C-x>",
+					-- Insert a link to the selected note.
+					insert_link = "<C-l>",
 				},
-				bullets = { char = "•", hl_group = "ObsidianBullet" },
-				external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
-				reference_text = { hl_group = "ObsidianRefText" },
-				highlight_text = { hl_group = "ObsidianHighlightText" },
-				tags = { hl_group = "ObsidianTag" },
-				-- hl_groups = {
-				-- 	-- The options are passed directly to `vim.api.nvim_set_hl()`. See `:help nvim_set_hl`.
-				-- 	ObsidianTodo = { bold = true, fg = "#f78c6c" },
-				-- 	ObsidianDone = { bold = true, fg = "#89ddff" },
-				-- 	ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
-				-- 	ObsidianTilde = { bold = true, fg = "#ff5370" },
-				-- 	ObsidianBullet = { bold = true, fg = "#89ddff" },
-				-- 	ObsidianRefText = { underline = true, fg = "#c792ea" },
-				-- 	ObsidianExtLinkIcon = { fg = "#c792ea" },
-				-- 	ObsidianTag = { italic = true, fg = "#89ddff" },
-				-- 	ObsidianHighlightText = { bg = "#75662e" },
-				-- },
+				tag_mappings = {
+					-- Add tag(s) to current note.
+					tag_note = "<C-x>",
+					-- Insert a tag at the current location.
+					insert_tag = "<C-l>",
+				},
+			},
+
+			-- Optional, sort search results by "path", "modified", "accessed", or "created".
+			-- The recommend value is "modified" and `true` for `sort_reversed`, which means, for example,
+			-- that `:ObsidianQuickSwitch` will show the notes sorted by latest modified time
+			sort_by = "modified",
+			sort_reversed = true,
+
+			-- Set the maximum number of lines to read from notes on disk when performing certain searches.
+			search_max_lines = 1000,
+
+			-- Optional, determines how certain commands open notes. The valid options are:
+			-- 1. "current" (the default) - to always open in the current window
+			-- 2. "vsplit" - to open in a vertical split if there's not already a vertical split
+			-- 3. "hsplit" - to open in a horizontal split if there's not already a horizontal split
+			open_notes_in = "current",
+
+			-- Optional, configure additional syntax highlighting / extmarks.
+			-- This requires you have `conceallevel` set to 1 or 2. See `:help conceallevel` for more details.
+			ui = {
+				enable = false, -- set to false to disable all additional syntax features
+			},
+
+			-- Specify how to handle attachments.
+			attachments = {
+				-- The default folder to place images in via `:ObsidianPasteImg`.
+				-- If this is a relative path it will be interpreted as relative to the vault root.
+				-- You can always override this per image by passing a full path to the command instead of just a filename.
+				img_folder = "Files", -- This is the default
 			},
 		})
 	end,
