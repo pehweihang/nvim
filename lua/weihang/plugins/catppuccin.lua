@@ -38,6 +38,7 @@ return {
 			custom_highlights = {},
 			integrations = {
 				fidget = true,
+        fzf = true,
 				gitsigns = true,
 				harpoon = true,
 				headlines = true,
