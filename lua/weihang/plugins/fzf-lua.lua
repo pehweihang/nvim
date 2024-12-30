@@ -78,7 +78,7 @@ local M = {
 		},
 		git = {
 			files = {
-				prompt = "GitFiles❯ ",
+				prompt = "Git Files❯ ",
 				cmd = "git ls-files -c --others --exclude-standard",
 				multiprocess = true, -- run command in a separate process
 				git_icons = true, -- show git icons?
