@@ -1,5 +1,6 @@
 return {
 	"echasnovski/mini.animate",
+  enable = false,
 	config = function()
 		local animate = require("mini.animate")
 		animate.setup({
