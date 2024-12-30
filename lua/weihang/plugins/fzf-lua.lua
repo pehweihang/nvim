@@ -98,6 +98,8 @@ local M = {
 				["?"] = { icon = "?", color = "magenta" },
 			},
 		},
+		grep = {
+			prompt = "grep❯ ",
 		},
 	},
 }
