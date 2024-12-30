@@ -103,6 +103,9 @@ M.config = function()
 	local servers_settings = {
 		lua_ls = {
 			Lua = {
+				completion = {
+					callSnippet = "Replace",
+				},
 				diagnostics = {
 					globals = { "vim" },
 				},
