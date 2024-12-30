@@ -50,7 +50,7 @@ return {
 		require("snacks").setup({
 			animate = { enabled = true },
 			bigfile = { enabled = true },
-			notifier = { enabled = true, top_down = false },
+			notifier = { enabled = true, top_down = false, margin = { bottom = 3 } },
 		})
 	end,
 }
