@@ -143,4 +143,5 @@ M.project_grep = function()
 		fzf_lua.live_grep(grep_opts)
 	end
 end
+
 return M
