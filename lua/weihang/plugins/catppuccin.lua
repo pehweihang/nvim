@@ -38,7 +38,7 @@ return {
 			custom_highlights = {},
 			integrations = {
 				fidget = true,
-        fzf = true,
+				fzf = true,
 				gitsigns = true,
 				harpoon = true,
 				headlines = true,
@@ -68,8 +68,8 @@ return {
 						background = true,
 					},
 				},
-        neogit = true,
-        render_markdown = true,
+				neogit = true,
+				render_markdown = true,
 				semantic_tokens = true,
 				treesitter_context = true,
 				treesitter = true,
@@ -78,7 +78,7 @@ return {
 					-- style = "nvchad"
 				},
 				lsp_trouble = false,
-        snacks = true
+				snacks = true,
 			},
 		})
 
