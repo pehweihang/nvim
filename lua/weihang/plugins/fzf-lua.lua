@@ -106,6 +106,7 @@ local M = {
 
 local is_inside_work_tree = {}
 
+-- Project files with normal files as fallback
 M.project_files = function()
 	local fzf_lua = require("fzf-lua")
 	local f_opts = { previewer = false }
