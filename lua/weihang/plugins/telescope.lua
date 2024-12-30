@@ -1,7 +1,8 @@
 local opts = { noremap = true, silent = true }
 
-M = {
+local M = {
 	"nvim-telescope/telescope.nvim",
+  enabled = false,
 	dependencies = { "nvim-lua/plenary.nvim", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
 	keys = {
 		{
@@ -58,10 +59,10 @@ M = {
 				mappings = {
 					i = {
 						["<esc>"] = actions.close,
-						["<C-p>"] = layout_actions.toggle_preview,
+						["<C-S-p>"] = layout_actions.toggle_preview,
 
-						["<C-j>"] = actions.move_selection_next,
-						["<C-k>"] = actions.move_selection_previous,
+						["<C-n>"] = actions.move_selection_next,
+						["<C-p>"] = actions.move_selection_previous,
 
 						["<C-c>"] = actions.close,
 
