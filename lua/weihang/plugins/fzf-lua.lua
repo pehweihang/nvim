@@ -123,4 +123,24 @@ M.project_files = function()
 	end
 end
 
+-- Project grep with normal files as fallback
+M.project_grep = function()
+	local fzf_lua = require("fzf-lua")
+	local function get_git_root()
+		local dot_git_path = vim.fn.finddir(".git", ".;")
+		return vim.fn.fnamemodify(dot_git_path, ":h")
+	end
+	local cwd = vim.fn.getcwd()
+	local grep_opts = {}
+	if is_inside_work_tree[cwd] == nil then
+		vim.fn.system("git rev-parse --is-inside-work-tree")
+		is_inside_work_tree[cwd] = vim.v.shell_error == 0
+		opts = { cwd = get_git_root }
+	end
+	if is_inside_work_tree[cwd] then
+		fzf_lua.project_grep(grep_opts)
+	else
+		fzf_lua.live_grep(grep_opts)
+	end
+end
 return M
