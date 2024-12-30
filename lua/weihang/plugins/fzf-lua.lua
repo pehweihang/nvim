@@ -88,14 +88,15 @@ local M = {
 				-- directory can also be used to hide the header when not wanted
 				cwd_header = true,
 			},
-		icons = {
-			["M"] = { icon = "", color = "yellow" },
-			["D"] = { icon = "", color = "red" },
-			["A"] = { icon = "A", color = "green" },
-			["R"] = { icon = "R", color = "yellow" },
-			["C"] = { icon = "C", color = "yellow" },
-			["T"] = { icon = "T", color = "magenta" },
-			["?"] = { icon = "?", color = "magenta" },
+			icons = {
+				["M"] = { icon = "", color = "yellow" },
+				["D"] = { icon = "", color = "red" },
+				["A"] = { icon = "A", color = "green" },
+				["R"] = { icon = "R", color = "yellow" },
+				["C"] = { icon = "C", color = "yellow" },
+				["T"] = { icon = "T", color = "magenta" },
+				["?"] = { icon = "?", color = "magenta" },
+			},
 		},
 		},
 	},
