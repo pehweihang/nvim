@@ -78,6 +78,7 @@ return {
 					-- style = "nvchad"
 				},
 				lsp_trouble = false,
+        snacks = true
 			},
 		})
 
