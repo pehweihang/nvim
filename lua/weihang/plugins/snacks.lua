@@ -52,6 +52,7 @@ return {
 			bigfile = { enabled = true },
 			input = { enabled = true },
 			notifier = { enabled = true, top_down = false, margin = { bottom = 3 } },
+			scroll = { enabled = true },
 		})
 	end,
 }
