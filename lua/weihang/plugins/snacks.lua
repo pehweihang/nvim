@@ -1,7 +1,19 @@
+local opts = { noremap = true, silent = true }
+
 return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
+	keys = {
+		{
+			"<leader>g",
+			function()
+				Snacks.lazygit()
+			end,
+			desc = "Open lazygit",
+			opts,
+		},
+	},
 	config = function()
 		---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
 		local progress = vim.defaulttable()
@@ -53,6 +65,7 @@ return {
 			input = { enabled = true },
 			notifier = { enabled = true, top_down = false, margin = { bottom = 3 } },
 			scroll = { enabled = true },
+			lazygit = { enabled = true },
 		})
 	end,
 }
