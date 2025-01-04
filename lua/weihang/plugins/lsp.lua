@@ -4,6 +4,7 @@ local M = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"b0o/SchemaStore.nvim",
+		"saghen/blink.cmp",
 	},
 }
 
@@ -31,10 +32,9 @@ M.on_attach = function(client, bufnr)
 	end
 end
 
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
-local require_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+local require_ok, blink_cmp = pcall(require, "blink.cmp")
 if require_ok then
-	M.capabilities = vim.tbl_deep_extend("force", M.capabilities, cmp_nvim_lsp.default_capabilities())
+	M.capabilities = blink_cmp.get_lsp_capabilities()
 end
 
 M.config = function()
@@ -132,6 +132,41 @@ M.config = function()
 				capabilities = M.capabilities,
 				on_attach = M.on_attach,
 				settings = servers_settings[server_name],
+			})
+		end,
+		["lua_ls"] = function()
+			require("lspconfig")["lua_ls"].setup({
+				capabilities = M.capabilities,
+				on_attach = M.on_attach,
+				settings = servers_settings["lua_ls"],
+				on_init = function(client)
+					if client.workspace_folders then
+						local path = client.workspace_folders[1].name
+						if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+							return
+						end
+					end
+
+					client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+						runtime = {
+							-- Tell the language server which version of Lua you're using
+							-- (most likely LuaJIT in the case of Neovim)
+							version = "LuaJIT",
+						},
+						-- Make the server aware of Neovim runtime files
+						workspace = {
+							checkThirdParty = false,
+							library = {
+								vim.env.VIMRUNTIME,
+								-- Depending on the usage, you might want to add additional paths here.
+								-- "${3rd}/luv/library"
+								-- "${3rd}/busted/library",
+							},
+							-- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
+							-- library = vim.api.nvim_get_runtime_file("", true)
+						},
+					})
+				end,
 			})
 		end,
 		["rust_analyzer"] = function() end,

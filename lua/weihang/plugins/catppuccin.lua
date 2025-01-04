@@ -79,6 +79,7 @@ return {
 				},
 				lsp_trouble = false,
 				snacks = true,
+				blink_cmp = true,
 			},
 		})
 
