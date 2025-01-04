@@ -221,7 +221,7 @@ return {
 			group = vim.api.nvim_create_augroup("OilKeyBinds", {}),
 			pattern = "oil",
 			callback = function()
-				vim.keymap.set("n", "ggr", function()
+				vim.keymap.set("n", "gr", function()
 					local git_path = vim.fn.finddir(".git", ".;")
 					local cd_git = vim.fn.fnamemodify(git_path, ":h")
 					vim.api.nvim_command(string.format("edit %s", cd_git))
