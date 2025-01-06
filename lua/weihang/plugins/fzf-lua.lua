@@ -109,7 +109,7 @@ local is_inside_work_tree = {}
 -- Project files with normal files as fallback
 M.project_files = function()
 	local fzf_lua = require("fzf-lua")
-	local f_opts = { previewer = false }
+	local f_opts = { winopts = { preview = { hidden = "hidden" } } }
 	local cwd = vim.fn.getcwd()
 	if is_inside_work_tree[cwd] == nil then
 		vim.fn.system("git rev-parse --is-inside-work-tree")
