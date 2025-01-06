@@ -6,7 +6,7 @@ return {
 	lazy = false,
 	keys = {
 		{
-			"<leader>g",
+			"<leader>G",
 			function()
 				Snacks.lazygit()
 			end,
