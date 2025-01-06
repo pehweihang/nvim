@@ -60,6 +60,11 @@ return {
 					module = "blink.compat.source",
 					score_offset = 100,
 				},
+				path = {
+					opts = {
+						show_hidden_files_by_default = true,
+					},
+				},
 			},
 		},
 	},
