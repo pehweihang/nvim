@@ -1,7 +1,7 @@
 local opts = { noremap = true, silent = true }
 
 return {
-	"NeogitOrg/neogit",
+	"pehweihang/neogit",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"sindrets/diffview.nvim",
