@@ -5,5 +5,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		"echasnovski/mini.icons",
 	},
-  opts = {}
+	opts = {
+		latex = { enable = false },
+	},
 }
