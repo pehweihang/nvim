@@ -9,6 +9,13 @@ return {
 	},
 	keys = { { "<leader>g", "<cmd>Neogit<cr>", mode = "n", desc = "Open Neogit", opts } },
 	config = function()
-		require("neogit").setup({})
+		require("neogit").setup({
+			disable_hint = true,
+			graph_style = "kitty",
+			integrations = {
+				fzf_lua = true,
+				diffview = true,
+			},
+		})
 	end,
 }
