@@ -67,6 +67,10 @@ return {
 			scroll = { enabled = true },
 			lazygit = { enabled = true },
 			indent = { enabled = true, chunk = { enabled = true } },
+			image = {
+				enabled = true,
+				img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments", "Files" },
+			},
 		})
 	end,
 }
