@@ -27,6 +27,7 @@ local M = {
 		},
 	},
 	opts = {
+		fzf_opts = { ["--cycle"] = true },
 		winopts = {
 			preview = {
 				layout = "vertical",
