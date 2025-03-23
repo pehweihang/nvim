@@ -5,8 +5,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"sindrets/diffview.nvim",
-
-		"nvim-telescope/telescope.nvim",
+		"ibhagwan/fzf-lua",
 	},
 	keys = { { "<leader>g", "<cmd>Neogit<cr>", mode = "n", desc = "Open Neogit", opts } },
 	config = function()
