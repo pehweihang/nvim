@@ -66,6 +66,7 @@ return {
 			notifier = { enabled = true, top_down = false, margin = { bottom = 3 } },
 			scroll = { enabled = true },
 			lazygit = { enabled = true },
+			indent = { enabled = true, chunk = { enabled = true } },
 		})
 	end,
 }
