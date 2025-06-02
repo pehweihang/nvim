@@ -101,6 +101,7 @@ local M = {
 		},
 		grep = {
 			prompt = "grep❯ ",
+			hidden = true,
 		},
 	},
 }
