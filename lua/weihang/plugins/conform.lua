@@ -37,6 +37,8 @@ return {
 
 				java = { "google-java-format" },
 
+				rust = { lsp_format = "prefer" },
+
 				["_"] = { "trim_whitespace" },
 			},
 			log_level = vim.log.levels.ERROR,
