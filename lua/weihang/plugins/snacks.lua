@@ -5,6 +5,14 @@ return {
 	priority = 1000,
 	lazy = false,
 	keys = {
+		{
+			"<leader>Go",
+			function()
+				Snacks.gitbrowse()
+			end,
+			desc = "Open repo of the active file in the browser",
+			opts,
+		},
 	},
 	config = function()
 		---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
@@ -62,6 +70,7 @@ return {
 				enabled = true,
 				img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments", "Files" },
 			},
+			gitbrowse = { enabled = true },
 		})
 	end,
 }
