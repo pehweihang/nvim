@@ -5,7 +5,6 @@ return {
 	lazy = false,
 	keys = {
 		{ "<leader>e", "<cmd>Oil<cr>", "n", opts, desc = "Open oil" },
-		{ "<leader>E", "<cmd>Oil --float<cr>", "n", opts, desc = "Open oil in float" },
 	},
 	config = function()
 		require("oil").setup({

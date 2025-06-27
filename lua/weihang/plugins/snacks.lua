@@ -50,6 +50,14 @@ return {
 			desc = "Grep files",
 			opts,
 		},
+		{
+			"<leader>E",
+			function()
+				Snacks.picker.explorer()
+			end,
+			desc = "Open Explorer",
+			opts,
+		},
 	},
 	config = function()
 		---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
@@ -108,6 +116,7 @@ return {
 				img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments", "Files" },
 			},
 			gitbrowse = { enabled = true },
+			explorer = { enabled = true },
 			picker = {
 				enabled = true,
 				ui_select = true,
