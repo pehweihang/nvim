@@ -13,7 +13,7 @@ return {
 			disable_hint = true,
 			graph_style = "kitty",
 			integrations = {
-				fzf_lua = true,
+				snacks = true,
 				diffview = true,
 			},
 		})

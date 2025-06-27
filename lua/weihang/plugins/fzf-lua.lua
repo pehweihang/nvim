@@ -2,6 +2,7 @@ local opts = { noremap = true, silent = true }
 
 local M = {
 	"ibhagwan/fzf-lua",
+	enabled = false,
 	dependencies = { "echasnovski/mini.icons" },
 	keys = {
 		{
