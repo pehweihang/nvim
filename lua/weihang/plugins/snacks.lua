@@ -47,7 +47,7 @@ return {
 					hidden = true,
 				})
 			end,
-			desc = "Find files",
+			desc = "Grep files",
 			opts,
 		},
 	},
