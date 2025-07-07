@@ -81,6 +81,8 @@ return {
 				snacks = true,
 				blink_cmp = true,
 			},
+			diffview = true,
+			nvim_surround = false,
 		})
 
 		vim.cmd.colorscheme("catppuccin")
