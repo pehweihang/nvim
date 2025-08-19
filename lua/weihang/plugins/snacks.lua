@@ -168,6 +168,9 @@ return {
 			picker = {
 				enabled = true,
 				ui_select = true,
+				layout = {
+					preset = "wide_vertical",
+				},
 				formatters = {
 					file = {
 						filename_first = true,
