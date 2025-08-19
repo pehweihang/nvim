@@ -1,5 +1,5 @@
 return {
-	"epwalsh/obsidian.nvim",
+	"obsidian-nvim/obsidian.nvim",
 	version = "*",
 	lazy = true,
 	event = {
@@ -16,6 +16,8 @@ return {
 		"nvim-treesitter",
 	},
 	config = function()
+		---@module 'obsidian'
+		---@type obsidian.config
 		require("obsidian").setup({
 			-- A list of workspace names, paths, and configuration overrides.
 			-- If you use the Obsidian app, the 'path' of a workspace should generally be
@@ -41,6 +43,7 @@ return {
 				default_tags = { "daily-notes" },
 				-- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
 				template = nil,
+				workdays_only = false,
 			},
 
 			-- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
@@ -127,13 +130,6 @@ return {
 			follow_img_func = function(img)
 				vim.fn.jobstart({ "xdg-open", img }) -- linux
 			end,
-
-			-- Optional, set to true if you use the Obsidian Advanced URI plugin.
-			-- https://github.com/Vinzent03/obsidian-advanced-uri
-			use_advanced_uri = false,
-
-			-- Optional, set to true to force ':ObsidianOpen' to bring the app to the foreground.
-			open_app_foreground = false,
 
 			picker = {
 				-- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', or 'mini.pick'.
