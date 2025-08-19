@@ -162,6 +162,7 @@ return {
 				enabled = true,
 				img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments", "Files" },
 			},
+			statuscolumn = { enabled = true },
 			gitbrowse = { enabled = true },
 			explorer = { enabled = true },
 			picker = {
