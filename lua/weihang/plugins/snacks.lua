@@ -89,6 +89,22 @@ return {
 			desc = "Open Explorer",
 			opts,
 		},
+		{
+			"<leader>N",
+			function()
+				Snacks.notifier.show_history()
+			end,
+			desc = "Show notification history",
+			opts,
+		},
+		{
+			"<leader>n",
+			function()
+				Snacks.notifier.hide()
+			end,
+			desc = "Hide notifications",
+			opts,
+		},
 	},
 	config = function()
 		---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
