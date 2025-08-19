@@ -1,5 +1,36 @@
 local opts = { noremap = true, silent = true }
 
+local is_inside_work_tree = {}
+
+-- Project files with normal files as fallback
+local function git_files()
+	local cwd = vim.fn.getcwd()
+	if is_inside_work_tree[cwd] == nil then
+		local is_work_tree = vim.trim(vim.fn.system("git rev-parse --is-inside-work-tree"))
+		is_inside_work_tree[cwd] = vim.v.shell_error == 0 and is_work_tree == "true"
+	end
+
+	if is_inside_work_tree[cwd] then
+		Snacks.picker.git_files({ untracked = true, layout = { preset = "wide_vertical", hidden = { "preview" } } })
+	else
+		Snacks.picker.files({ hidden = true, layout = { preset = "wide_vertical", hidden = { "preview" } } })
+	end
+end
+
+-- Project grep with normal files as fallback
+local function git_grep()
+	local cwd = vim.fn.getcwd()
+	if is_inside_work_tree[cwd] == nil then
+		vim.fn.system("git rev-parse --is-inside-work-tree")
+		is_inside_work_tree[cwd] = vim.v.shell_error == 0
+	end
+	if is_inside_work_tree[cwd] then
+		Snacks.picker.git_grep({ layout = "wide_vertical", untracked = true })
+	else
+		Snacks.picker.grep({ layout = "wide_vertical", hidden = true })
+	end
+end
+
 return {
 	"folke/snacks.nvim",
 	priority = 1000,
