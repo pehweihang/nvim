@@ -151,6 +151,9 @@ return {
 			end,
 		})
 
+		local layouts = require("snacks.picker.config.layouts")
+		layouts.wide_vertical = vim.tbl_deep_extend("keep", { layout = { width = 0.8 } }, layouts.vertical)
+
 		require("snacks").setup({
 			animate = { enabled = true },
 			bigfile = { enabled = true },
